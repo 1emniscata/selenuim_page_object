@@ -5,7 +5,7 @@ from selenium.common import NoSuchElementException, NoAlertPresentException, Tim
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pages.locators import BasePageLocators
+from .locators import BasePageLocators
 
 
 class BasePage:

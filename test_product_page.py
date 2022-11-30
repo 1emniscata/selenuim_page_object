@@ -58,17 +58,34 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()
 
 
-def test_guest_can_go_to_login_page_from_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-    page = ProductPage(browser, link)
-    page.open()
-    page.go_to_login_page()
+class ProductFactory:
+    """Stub for the TestLoginFormProductPage class"""
+    def __init__(self, title):
+        self.title = title
+        self.link = ""
+
+    def delete(self):
+        pass
 
 
-def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-    page = BasketPage(browser, link)
-    page.open()
-    page.go_to_basket()
-    basket_msg = page.get_basket_msg()
-    assert basket_msg == "Your basket is empty. Continue shopping"
+class TestLoginFormProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self):
+        self.product = ProductFactory(title="Best book created by robot")
+        self.link = self.product.link
+        yield
+        self.product.delete()
+
+    def test_guest_can_go_to_login_page_from_product_page(browser):
+        link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+        page = ProductPage(browser, link)
+        page.open()
+        page.go_to_login_page()
+
+    def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+        link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+        page = BasketPage(browser, link)
+        page.open()
+        page.go_to_basket()
+        basket_msg = page.get_basket_msg()
+        assert basket_msg == "Your basket is empty. Continue shopping"
