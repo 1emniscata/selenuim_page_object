@@ -1,5 +1,4 @@
 import math
-import time
 
 from selenium.common import NoSuchElementException, NoAlertPresentException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
@@ -67,13 +66,6 @@ class BasePage:
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
-
-    # def get_basket_msg(self) -> str:
-    #     basket_btn = self.browser.find_element(*BasePageLocators.BASKET)
-    #     basket_link = basket_btn.get_attribute("href")
-    #     self.open(basket_link)
-    #     basket_msg = self.browser.find_element(*BasePageLocators.BASKET_MSG).text
-    #     return basket_msg
 
     def should_be_authorized_user(self):
         assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \

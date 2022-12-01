@@ -8,6 +8,6 @@ class BasketPage(BasePage):
         basket_link = basket_btn.get_attribute("href")
         self.open(basket_link)
 
-    def get_basket_msg(self) -> str:
+    def get_basket_msg(self):
         basket_msg = self.browser.find_element(*BasePageLocators.BASKET_MSG).text
-        return basket_msg
+        assert basket_msg == "Your basket is empty. Continue shopping"

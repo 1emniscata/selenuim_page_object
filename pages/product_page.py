@@ -1,3 +1,5 @@
+from selenium.common import NoAlertPresentException
+
 from .base_page import BasePage
 from .locators import ProductPageLocators
 
@@ -6,7 +8,10 @@ class ProductPage(BasePage):
     def add_product_to_basket(self):
         add_btn = self.browser.find_element(*ProductPageLocators.ADD_PRODUCT)
         add_btn.click()
-        # self.solve_quiz_and_get_code()
+        try:
+            self.solve_quiz_and_get_code()
+        except NoAlertPresentException:
+            pass
         self.compare_titles()
         self.compare_prices()
 
